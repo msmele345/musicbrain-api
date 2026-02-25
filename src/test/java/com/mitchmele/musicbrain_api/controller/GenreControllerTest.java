@@ -8,20 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(GenreController.class)
 class GenreControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private WebTestClient webTestClient;
 
     @MockitoBean
     private LastFmService lastFmService;
@@ -45,14 +43,16 @@ class GenreControllerTest {
 
         when(lastFmService.getTopTags(25)).thenReturn(Mono.just(response));
 
-        mockMvc.perform(get("/api/genres/top")
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$[0].name").value("rock"))
-//                .andExpect(jsonPath("$[0].count").value(1234))
-//                .andExpect(jsonPath("$[1].name").value("indie"))
-//                .andExpect(jsonPath("$[1].count").value(800));
+        webTestClient
+                .get()
+                .uri("/api/genres/top")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(TagDto.class)
+                .hasSize(2)
+                .contains(rock, indie);
     }
 
     @Test
@@ -62,9 +62,14 @@ class GenreControllerTest {
 
         when(lastFmService.getTopTags(25)).thenReturn(Mono.just(response));
 
-        mockMvc.perform(get("/api/genres/top"))
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$").isArray())
-//                .andExpect(jsonPath("$").isEmpty());
+        webTestClient
+                .get()
+                .uri("/api/genres/top")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(TagDto.class)
+                .hasSize(0);
     }
 }
