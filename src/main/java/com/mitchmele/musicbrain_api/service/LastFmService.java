@@ -1,5 +1,8 @@
 package com.mitchmele.musicbrain_api.service;
 
+import com.mitchmele.musicbrain_api.dto.RecentTracksResponse;
+import com.mitchmele.musicbrain_api.dto.SimilarArtistsResponse;
+import com.mitchmele.musicbrain_api.dto.TopArtistsResponse;
 import com.mitchmele.musicbrain_api.dto.TopTagsResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -38,6 +41,55 @@ public class LastFmService {
                         .build())
                 .retrieve()
                 .bodyToMono(TopTagsResponse.class)
+                .timeout(Duration.ofSeconds(10))
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(1)));
+    }
+
+    @Cacheable("topArtists")
+    public Mono<TopArtistsResponse> getTopArtists(int limit, String period) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("method", "user.getTopArtists")
+                        .queryParam("user", username)
+                        .queryParam("api_key", apiKey)
+                        .queryParam("format", "json")
+                        .queryParam("limit", limit)
+                        .queryParam("period", period)
+                        .build())
+                .retrieve()
+                .bodyToMono(TopArtistsResponse.class)
+                .timeout(Duration.ofSeconds(10))
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(1)));
+    }
+
+    @Cacheable("recentTracks")
+    public Mono<RecentTracksResponse> getRecentTracks(int limit) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("method", "user.getRecentTracks")
+                        .queryParam("user", username)
+                        .queryParam("api_key", apiKey)
+                        .queryParam("format", "json")
+                        .queryParam("limit", limit)
+                        .build())
+                .retrieve()
+                .bodyToMono(RecentTracksResponse.class)
+                .timeout(Duration.ofSeconds(10))
+                .retryWhen(Retry.backoff(3, Duration.ofSeconds(1)));
+    }
+
+    @Cacheable("similarArtists")
+    public Mono<SimilarArtistsResponse> getSimilarArtists(String artist, int limit) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("method", "artist.getSimilar")
+                        .queryParam("artist", artist)
+                        .queryParam("api_key", apiKey)
+                        .queryParam("format", "json")
+                        .queryParam("limit", limit)
+                        .build())
+                .retrieve()
+                .bodyToMono(SimilarArtistsResponse.class)
                 .timeout(Duration.ofSeconds(10))
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(1)));
     }
