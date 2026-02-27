@@ -2,10 +2,13 @@ package com.mitchmele.musicbrain_api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ArtistDto {
 
@@ -14,7 +17,7 @@ public class ArtistDto {
     private String url;
     private String imageUrl;
 
-    public ArtistDto() {}
+    private ArtistDto() {}
 
     public static ArtistDto of(String name, String playcount, String url, String imageUrl) {
         ArtistDto dto = new ArtistDto();
@@ -24,15 +27,6 @@ public class ArtistDto {
         dto.imageUrl = imageUrl;
         return dto;
     }
-
-    public String getName() { return name; }
-    public String getPlaycount() { return playcount; }
-    public String getUrl() { return url; }
-    public String getImageUrl() { return imageUrl; }
-
-    public void setName(String name) { this.name = name; }
-    public void setPlaycount(String playcount) { this.playcount = playcount; }
-    public void setUrl(String url) { this.url = url; }
 
     @JsonProperty("image")
     public void setImage(List<Map<String, String>> images) {
