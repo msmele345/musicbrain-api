@@ -2,6 +2,7 @@ package com.mitchmele.musicbrain_api.controller;
 
 import com.mitchmele.musicbrain_api.dto.TrackDto;
 import com.mitchmele.musicbrain_api.service.LastFmService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,13 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tracks")
+@RequiredArgsConstructor
 public class TracksController {
 
     private final LastFmService lastFmService;
-
-    public TracksController(LastFmService lastFmService) {
-        this.lastFmService = lastFmService;
-    }
 
     @GetMapping("/recent")
     public Mono<List<TrackDto>> getRecentTracks(
