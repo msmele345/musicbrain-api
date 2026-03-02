@@ -5,5 +5,5 @@
 - For @WebMvcTests, Autowire the WebTestClient bean and use @MockitoBean to mock the service layer.
 - Controllers should also have @ExtendWith(MockitoExtension.class) unit tests with a mocked web layer.
 - For unit tests annotated with @ExtendWith(MockitoExtension.class), use Mockito's @Mock and @InjectMocks.
-- In a future phase/iteration, I would like to add a performance testing gatling module with a groovy spec for each endpoint.
+- In a future phase/iteration, I would like to add a Gatling performance testing module with a groovy spec for each endpoint.
 
