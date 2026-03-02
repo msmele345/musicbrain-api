@@ -3,17 +3,25 @@ package com.mitchmele.musicbrain_api.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrackDto {
 
+    @Setter
     private String name;
     private String artist;
     private String album;
     private String timestamp;
     private boolean nowPlaying;
 
-    public TrackDto() {}
+    private TrackDto() {}
 
     public static TrackDto of(String name, String artist, String album, String timestamp, boolean nowPlaying) {
         TrackDto dto = new TrackDto();
@@ -24,14 +32,6 @@ public class TrackDto {
         dto.nowPlaying = nowPlaying;
         return dto;
     }
-
-    public String getName() { return name; }
-    public String getArtist() { return artist; }
-    public String getAlbum() { return album; }
-    public String getTimestamp() { return timestamp; }
-    public boolean isNowPlaying() { return nowPlaying; }
-
-    public void setName(String name) { this.name = name; }
 
     @JsonProperty("artist")
     public void setArtist(JsonNode node) {

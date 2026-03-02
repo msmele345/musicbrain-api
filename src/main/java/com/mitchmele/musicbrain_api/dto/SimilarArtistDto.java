@@ -2,10 +2,16 @@ package com.mitchmele.musicbrain_api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SimilarArtistDto {
 
@@ -14,7 +20,7 @@ public class SimilarArtistDto {
     private String url;
     private String imageUrl;
 
-    public SimilarArtistDto() {}
+    private SimilarArtistDto() {}
 
     public static SimilarArtistDto of(String name, double match, String url, String imageUrl) {
         SimilarArtistDto dto = new SimilarArtistDto();
@@ -25,13 +31,6 @@ public class SimilarArtistDto {
         return dto;
     }
 
-    public String getName() { return name; }
-    public double getMatch() { return match; }
-    public String getUrl() { return url; }
-    public String getImageUrl() { return imageUrl; }
-
-    public void setName(String name) { this.name = name; }
-    public void setUrl(String url) { this.url = url; }
 
     @JsonProperty("match")
     public void setMatch(String match) {
