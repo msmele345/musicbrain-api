@@ -62,7 +62,7 @@ public class LastFmService {
                 .retryWhen(Retry.backoff(3, Duration.ofSeconds(1)));
     }
 
-//    @Cacheable("recentTracks")
+    @Cacheable("recentTracks")
     public Mono<RecentTracksResponse> getRecentTracks(int limit) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder

@@ -46,7 +46,8 @@ curl http://localhost:8080/api/discovery/suggested
 
 ## Caching
 
-Responses are cached with [Caffeine](https://github.com/ben-manes/caffeine) to reduce Last.fm API calls. Cache TTL is 30 minutes. Caching is configured in `CacheConfig.java`.
+Selected responses are cached with [Caffeine](https://github.com/ben-manes/caffeine) to reduce Last.fm API calls. Where caching is enabled, the default cache TTL is 30 minutes. Caching behavior is configured in `CacheConfig.java` and the relevant service classes.
+
 
 ## Testing
 
