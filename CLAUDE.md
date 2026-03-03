@@ -3,7 +3,7 @@
     |- additional_instructions.md
     |- git_instructions.md
     |- java_code_style.md
-    |- phase3_planning.md
+    |- phase2.5_planning.md
     |- project_details.md
     |- testing_strategy.md
 

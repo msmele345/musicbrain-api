@@ -34,4 +34,7 @@ build/
 ### VS Code ###
 .vscode/
 
-.CLAUDE.local.md
+### Gatling ###
+target/gatling/
+
+CLAUDE.md

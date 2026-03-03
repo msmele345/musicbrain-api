@@ -30,7 +30,7 @@ class ArtistsControllerTest {
         ArtistDto portishead = artistDto("Portishead", "800", "https://last.fm/music/Portishead", null);
 
         TopArtistsResponse response = buildResponse(List.of(radiohead, portishead));
-        when(lastFmService.getTopArtists(10, "7day")).thenReturn(Mono.just(response));
+        when(lastFmService.getTopArtists(10, "14day")).thenReturn(Mono.just(response));
 
         webTestClient
                 .get()
@@ -45,7 +45,7 @@ class ArtistsControllerTest {
     @Test
     void getTopArtists_usesDefaultParamsWhenNoneProvided() {
         TopArtistsResponse response = buildResponse(List.of());
-        when(lastFmService.getTopArtists(10, "7day")).thenReturn(Mono.just(response));
+        when(lastFmService.getTopArtists(10, "14day")).thenReturn(Mono.just(response));
 
         webTestClient
                 .get()
@@ -74,7 +74,7 @@ class ArtistsControllerTest {
     void getTopArtists_returnsEmptyListWhenNoArtists() {
         TopArtistsResponse response = new TopArtistsResponse();
         response.setTopArtists(null);
-        when(lastFmService.getTopArtists(10, "7day")).thenReturn(Mono.just(response));
+        when(lastFmService.getTopArtists(10, "14day")).thenReturn(Mono.just(response));
 
         webTestClient
                 .get()

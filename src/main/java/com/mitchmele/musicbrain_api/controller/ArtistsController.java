@@ -21,7 +21,7 @@ public class ArtistsController {
 
     @GetMapping("/top")
     public Mono<List<ArtistDto>> getTopArtists(
-            @RequestParam(defaultValue = "7day") String period,
+            @RequestParam(defaultValue = "14day") String period,
             @RequestParam(defaultValue = "10") int limit) {
         return lastFmService.getTopArtists(limit, period)
                 .map(response -> {
