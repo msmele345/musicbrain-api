@@ -6,3 +6,4 @@
     |- project_details.md
     |- testing_strategy.md
 
+# See @README.md for general project information

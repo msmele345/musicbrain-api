@@ -6,8 +6,9 @@
   - `release/*` - created from develop when preparing for a release, merged into main
 - PRs should be used to merge feature branches into develop, and release branches into main. PRs should be reviewed and approved by me before merging.
 - Use Squash and Merge for all PRs to keep a clean commit history.
-- Commit messages should follow best practices and use the format: (feat:, chore:, fix:, docs:, etc..) Examples: 
+- Commit messages should follow best practices and use the format: (feat:, chore:, fix:, docs:, refactor:) Examples: 
   - `feat: add new widget for genre breakdown`
   - `chore: minor tasks like updating dependencies or fixing typos`
   - `fix: resolve bug in Spotify API integration` 
   - `docs: update README with setup instructions`
+  - `refactor: service layer redesign`
