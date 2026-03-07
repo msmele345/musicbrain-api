@@ -43,12 +43,6 @@ public class SimilarArtistDto {
 
     @JsonProperty("image")
     public void setImage(List<Map<String, String>> images) {
-        if (images != null) {
-            images.stream()
-                    .filter(img -> "large".equals(img.get("size")))
-                    .map(img -> img.get("#text"))
-                    .findFirst()
-                    .ifPresent(u -> this.imageUrl = u);
-        }
+        LastFmImageUtils.extractLargeImageUrl(images).ifPresent(u -> this.imageUrl = u);
     }
 }
